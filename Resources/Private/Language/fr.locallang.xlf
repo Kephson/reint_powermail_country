@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="fr" datatype="plaintext" original="messages" date="2015-04-27T11:40:38Z" product-name="reint_powermail_country">
+		<header/>
+		<body>
+			<trans-unit id="other_country">
+				<source>Other country</source>
+				<target state="translated">Autre pays</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
