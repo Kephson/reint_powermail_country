@@ -8,7 +8,7 @@
 .. _start:
 
 =============================================================
-Download manager
+Powermail country ViewHelper
 =============================================================
 
 .. only:: html
@@ -17,7 +17,7 @@ Download manager
 		reint_powermail_country
 
 	:Version:
-		1.0.0
+		1.2.0
 
 	:Language:
 		en

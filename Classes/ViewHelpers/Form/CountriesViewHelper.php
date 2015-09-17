@@ -31,23 +31,74 @@ class CountriesViewHelper extends AbstractViewHelper {
 		if (ExtensionManagementUtility::isLoaded('static_info_tables')) {
 			$countriesFromStaticInfoTables = $this->objectManager->get('RENOLIT\ReintPowermailCountry\Utility\CountriesFromStaticInfoTables');
 
+			if ($key === 'isoCodeA2') {
+				$oldTableField = 'cn_iso_2';
+			} else {
+				$oldTableField = 'cn_iso_3';
+			}
+
+			// static_info_tables_de
 			if (ExtensionManagementUtility::isLoaded('static_info_tables_de') && $GLOBALS['TSFE']->lang === 'de') {
 				$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortNameDe', 'shortNameDe', $sorting);
-			} else if (ExtensionManagementUtility::isLoaded('static_info_tables_fr') && $GLOBALS['TSFE']->lang === 'fr') {
+			}
+			// static_info_tables_fr
+			else if (ExtensionManagementUtility::isLoaded('static_info_tables_fr') && $GLOBALS['TSFE']->lang === 'fr') {
 				$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortNameFr', 'shortNameFr', $sorting);
-			} else if (ExtensionManagementUtility::isLoaded('static_info_tables_ru') && $GLOBALS['TSFE']->lang === 'ru') {
-				$countries = $this->loadCountryFieldsViaTypo3Api('cn_iso_3', 'cn_short_ru', 'cn_short_ru', $sorting);
-			} else if (ExtensionManagementUtility::isLoaded('static_info_tables_sv') && $GLOBALS['TSFE']->lang === 'sv') {
-				$countries = $this->loadCountryFieldsViaTypo3Api('cn_iso_3', 'cn_short_sv', 'cn_short_sv', $sorting);
-			} else if (ExtensionManagementUtility::isLoaded('static_info_tables_nl') && $GLOBALS['TSFE']->lang === 'nl') {
-				$countries = $this->loadCountryFieldsViaTypo3Api('cn_iso_3', 'cn_short_nl', 'cn_short_nl', $sorting);
-			} else if (ExtensionManagementUtility::isLoaded('static_info_tables_it') && $GLOBALS['TSFE']->lang === 'it') {
-				$countries = $this->loadCountryFieldsViaTypo3Api('cn_iso_3', 'cn_short_it', 'cn_short_it', $sorting);
-			} else if (ExtensionManagementUtility::isLoaded('static_info_tables_es') && $GLOBALS['TSFE']->lang === 'es') {
-				$countries = $this->loadCountryFieldsViaTypo3Api('cn_iso_3', 'cn_short_es', 'cn_short_es', $sorting);
-			} else if (ExtensionManagementUtility::isLoaded('static_info_tables_da') && $GLOBALS['TSFE']->lang === 'da') {
-				$countries = $this->loadCountryFieldsViaTypo3Api('cn_iso_3', 'cn_short_da', 'cn_short_da', $sorting);
-			} else {
+			}
+			// static_info_tables_ru
+			else if (ExtensionManagementUtility::isLoaded('static_info_tables_ru') && $GLOBALS['TSFE']->lang === 'ru') {
+				$countries = $this->loadCountryFieldsViaTypo3Api($oldTableField, 'cn_short_ru', 'cn_short_ru', $sorting);
+			}
+			// static_info_tables_sv
+			else if (ExtensionManagementUtility::isLoaded('static_info_tables_sv') && $GLOBALS['TSFE']->lang === 'sv') {
+				$countries = $this->loadCountryFieldsViaTypo3Api($oldTableField, 'cn_short_sv', 'cn_short_sv', $sorting);
+			}
+			// static_info_tables_nl
+			else if (ExtensionManagementUtility::isLoaded('static_info_tables_nl') && $GLOBALS['TSFE']->lang === 'nl') {
+				$countries = $this->loadCountryFieldsViaTypo3Api($oldTableField, 'cn_short_nl', 'cn_short_nl', $sorting);
+			}
+			// static_info_tables_it
+			else if (ExtensionManagementUtility::isLoaded('static_info_tables_it') && $GLOBALS['TSFE']->lang === 'it') {
+				if (version_compare(ExtensionManagementUtility::getExtensionVersion('static_info_tables_it'), '6.2.0') >= 0) {
+					$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortNameIt', 'shortNameIt', $sorting);
+				} else {
+					$countries = $this->loadCountryFieldsViaTypo3Api($oldTableField, 'cn_short_it', 'cn_short_it', $sorting);
+				}
+			}
+			// static_info_tables_es
+			else if (ExtensionManagementUtility::isLoaded('static_info_tables_es') && $GLOBALS['TSFE']->lang === 'es') {
+				if (version_compare(ExtensionManagementUtility::getExtensionVersion('static_info_tables_es'), '6.2.0') >= 0) {
+					$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortNameEs', 'shortNameEs', $sorting);
+				} else {
+					$countries = $this->loadCountryFieldsViaTypo3Api($oldTableField, 'cn_short_es', 'cn_short_es', $sorting);
+				}
+			}
+			// static_info_tables_da
+			else if (ExtensionManagementUtility::isLoaded('static_info_tables_da') && $GLOBALS['TSFE']->lang === 'da') {
+				if (version_compare(ExtensionManagementUtility::getExtensionVersion('static_info_tables_da'), '6.2.0') >= 0) {
+					$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortNameDa', 'shortNameDa', $sorting);
+				} else {
+					$countries = $this->loadCountryFieldsViaTypo3Api($oldTableField, 'cn_short_da', 'cn_short_da', $sorting);
+				}
+			}
+			// static_info_tables_zh
+			else if (ExtensionManagementUtility::isLoaded('static_info_tables_zh') && $GLOBALS['TSFE']->lang === 'zh') {
+				if (version_compare(ExtensionManagementUtility::getExtensionVersion('static_info_tables_zh'), '6.2.0') >= 0) {
+					$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortNameZh', 'shortNameZh', $sorting);
+				} else {
+					$countries = $this->loadCountryFieldsViaTypo3Api($oldTableField, 'cn_short_zh', 'cn_short_zh', $sorting);
+				}
+			}
+			// static_info_tables_pl
+			else if (ExtensionManagementUtility::isLoaded('static_info_tables_pl') && $GLOBALS['TSFE']->lang === 'pl') {
+				if (version_compare(ExtensionManagementUtility::getExtensionVersion('static_info_tables_pl'), '1.2.0') >= 0) {
+					$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortNamePl', 'shortNamePl', $sorting);
+				} else {
+					$countries = $this->loadCountryFieldsViaTypo3Api($oldTableField, 'cn_short_pl', 'cn_short_pl', $sorting);
+				}
+			}
+			// default is english
+			else {
 				$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortNameEn', 'shortNameEn', $sorting);
 			}
 

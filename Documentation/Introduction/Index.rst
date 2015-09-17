@@ -33,17 +33,18 @@ Support for the following domain model extensions:
 - `static_info_tables <http://typo3.org/extensions/repository/view/static_info_tables>`_
 - `static_info_tables_de <http://typo3.org/extensions/repository/view/static_info_tables_de>`_
 - `static_info_tables_fr <http://typo3.org/extensions/repository/view/static_info_tables_fr>`_
+- `static_info_tables_it <http://typo3.org/extensions/repository/view/static_info_tables_it>`_
+- `static_info_tables_es <http://typo3.org/extensions/repository/view/static_info_tables_es>`_
+- `static_info_tables_da <http://typo3.org/extensions/repository/view/static_info_tables_da>`_
+- `static_info_tables_zh <http://typo3.org/extensions/repository/view/static_info_tables_zh>`_
+- `static_info_tables_pl <http://typo3.org/extensions/repository/view/static_info_tables_pl>`_
 
 
-
-It supports also the old "outdated" static_info_tables extensions without domain model:
+It supports also some old "outdated" static_info_tables extensions without domain model:
 
 - `static_info_tables_ru <http://typo3.org/extensions/repository/view/static_info_tables_ru>`_
 - `static_info_tables_sv <http://typo3.org/extensions/repository/view/static_info_tables_sv>`_
 - `static_info_tables_nl <http://typo3.org/extensions/repository/view/static_info_tables_nl>`_
-- `static_info_tables_it <http://typo3.org/extensions/repository/view/static_info_tables_it>`_
-- `static_info_tables_es <http://typo3.org/extensions/repository/view/static_info_tables_es>`_
-- `static_info_tables_da <http://typo3.org/extensions/repository/view/static_info_tables_da>`_
 
 
 
