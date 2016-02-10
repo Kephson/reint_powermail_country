@@ -11,6 +11,12 @@
 ChangeLog
 =========
 
+- **10.02.2016** -> 1.2.2
+
+  - merged pull request from pfandie see https://github.com/Kephson/reint_powermail_country/pull/1
+  - release of version 1.2.2
+  
+----------------------------
 
 - **10.02.2016** -> 1.2.1
 
