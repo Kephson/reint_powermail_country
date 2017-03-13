@@ -17,7 +17,7 @@ Powermail country ViewHelper
 		reint_powermail_country
 
 	:Version:
-		1.2.1
+		1.2.3
 
 	:Language:
 		en
@@ -29,7 +29,7 @@ Powermail country ViewHelper
 		powermail,country,select,sorting,static_info_tables,static,info,tables
 
 	:Copyright:
-		2015
+		2017
 
 	:Author:
 		Ephraim Härer

@@ -76,7 +76,7 @@ Configuration
 			<div class="field">
 				<f:form.select
 					property="{field.marker}"
-					options="{rvh:Form.Countries(key:'isoCodeA3',value:'officialNameLocal',sortbyField:'isoCodeA3',sorting:'asc')}"
+					options="{rvh:Form.Countries(key:'isoCodeA3',value:'officialNameLocal',sortbyField:'isoCodeA3',sorting:'asc',other:'1')}"
 					prependOptionLabel="{f:translate(key:'pleaseChoose')}"
 					class="powermail_field powermail_country {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}"
 					value="{vh:Misc.PrefillField(field:field)}"
@@ -92,4 +92,4 @@ Only the new namespace was added at the top:
 
 And the options for the country select field have to be changed:
 
-**{rvh:Form.Countries(key:'isoCodeA3',value:'officialNameLocal',sortbyField:'isoCodeA3',sorting:'asc')}**
+**{rvh:Form.Countries(key:'isoCodeA3',value:'officialNameLocal',sortbyField:'isoCodeA3',sorting:'asc',other:'1')}**

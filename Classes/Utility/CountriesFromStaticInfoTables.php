@@ -1,12 +1,14 @@
 <?php
+
 namespace RENOLIT\ReintPowermailCountry\Utility;
 
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
-/***************************************************************
+/* * *************************************************************
  *  Copyright notice
  *
  *  (c) 2014 Alex Kellner <alexander.kellner@in2code.de>, in2code.de
+ *  (c) 2017 Ephraim Härer <ephraim.haerer@renolit.com>, RENOLIT SE
  *
  *  All rights reserved
  *
@@ -25,7 +27,7 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  *  GNU General Public License for more details.
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * ************************************************************* */
 
 /**
  * Get countries from static_info_tables
@@ -34,7 +36,8 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  * @license http://www.gnu.org/licenses/lgpl.html
  * 			GNU Lesser General Public License, version 3 or later
  */
-class CountriesFromStaticInfoTables {
+class CountriesFromStaticInfoTables
+{
 
 	/**
 	 * countryRepository
@@ -53,7 +56,8 @@ class CountriesFromStaticInfoTables {
 	 * @param string $sorting
 	 * @return array
 	 */
-	public function getCountries($key = 'isoCodeA3', $value = 'officialNameLocal', $sortbyField = 'isoCodeA3', $sorting = 'asc') {
+	public function getCountries($key = 'isoCodeA3', $value = 'officialNameLocal', $sortbyField = 'isoCodeA3', $sorting = 'asc')
+	{
 		$countries = $this->countryRepository->findAllOrderedBy($sortbyField, $sorting);
 		$countriesArray = array();
 		foreach ($countries as $country) {

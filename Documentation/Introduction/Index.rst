@@ -23,7 +23,7 @@ It uses the static_info_tables(_iso2) extensions for the countries (like it is d
 Following is done:
 
 - Sorting is done with the name of the country 
-- Additional option "other country" will be added
+- Additional option "other country" will be added (could be disabled with other=0)
 - support for older static_info_tables extensions
 
 

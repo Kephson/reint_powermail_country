@@ -2,10 +2,33 @@
 
 namespace RENOLIT\ReintPowermailCountry\ViewHelpers\Form;
 
+/* * *************************************************************
+ *  Copyright notice
+ *
+ *  (c) 2015 Ephraim Härer https://github.com/Kephson
+ *  (c) 2016 Hans Mayer <hans.mayer83@gmail.com>
+ *
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ * ************************************************************* */
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use \TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use \TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * View helper to get a country array
@@ -13,7 +36,8 @@ use \TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  * @package TYPO3
  * @subpackage Fluid
  */
-class CountriesViewHelper extends AbstractViewHelper {
+class CountriesViewHelper extends AbstractViewHelper
+{
 
 	/**
 	 * Get array with countries
@@ -22,13 +46,15 @@ class CountriesViewHelper extends AbstractViewHelper {
 	 * @param \string $value
 	 * @param \string $sortbyField
 	 * @param \string $sorting
+	 * @param boolean $other
 	 * @return array
 	 */
-	public function render($key = 'isoCodeA3', $value = 'officialNameLocal', $sortbyField = 'isoCodeA3', $sorting = 'asc') {
-		$countries = $this->getCountries();
-
+	public function render($key = 'isoCodeA3', $value = 'officialNameLocal', $sortbyField = 'isoCodeA3', $sorting = 'asc', $other = true)
+	{
 		// get countries from static_info_tables
 		if (ExtensionManagementUtility::isLoaded('static_info_tables')) {
+			$iso2Key = $GLOBALS['TSFE']->lang;
+			$version = '6.2.0';
 			$countriesFromStaticInfoTables = $this->objectManager->get('RENOLIT\ReintPowermailCountry\Utility\CountriesFromStaticInfoTables');
 
 			if ($key === 'isoCodeA2') {
@@ -37,108 +63,65 @@ class CountriesViewHelper extends AbstractViewHelper {
 				$oldTableField = 'cn_iso_3';
 			}
 
-			// static_info_tables_de
-			if (ExtensionManagementUtility::isLoaded('static_info_tables_de') && $GLOBALS['TSFE']->lang === 'de') {
-				$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortNameDe', 'shortNameDe', $sorting);
-			}
-			// static_info_tables_fr
-			else if (ExtensionManagementUtility::isLoaded('static_info_tables_fr') && $GLOBALS['TSFE']->lang === 'fr') {
-				$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortNameFr', 'shortNameFr', $sorting);
-			}
-			// static_info_tables_ru
-			else if (ExtensionManagementUtility::isLoaded('static_info_tables_ru') && $GLOBALS['TSFE']->lang === 'ru') {
-				$countries = $this->loadCountryFieldsViaTypo3Api($oldTableField, 'cn_short_ru', 'cn_short_ru', $sorting);
-			}
-			// static_info_tables_sv
-			else if (ExtensionManagementUtility::isLoaded('static_info_tables_sv') && $GLOBALS['TSFE']->lang === 'sv') {
-				$countries = $this->loadCountryFieldsViaTypo3Api($oldTableField, 'cn_short_sv', 'cn_short_sv', $sorting);
-			}
-			// static_info_tables_nl
-			else if (ExtensionManagementUtility::isLoaded('static_info_tables_nl') && $GLOBALS['TSFE']->lang === 'nl') {
-				$countries = $this->loadCountryFieldsViaTypo3Api($oldTableField, 'cn_short_nl', 'cn_short_nl', $sorting);
-			}
-			// static_info_tables_it
-			else if (ExtensionManagementUtility::isLoaded('static_info_tables_it') && $GLOBALS['TSFE']->lang === 'it') {
-				if (version_compare(ExtensionManagementUtility::getExtensionVersion('static_info_tables_it'), '6.2.0') >= 0) {
-					$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortNameIt', 'shortNameIt', $sorting);
+			if ($this->isLoadedLanguageVersion($iso2Key)) {
+				if ($this->compareVersion($iso2Key, $version)) {
+					$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortName' . ucfirst($iso2Key), 'shortName' . ucfirst($iso2Key), $sorting);
 				} else {
-					$countries = $this->loadCountryFieldsViaTypo3Api($oldTableField, 'cn_short_it', 'cn_short_it', $sorting);
+					$countries = $this->loadCountryFieldsViaTypo3Api($oldTableField, 'cn_short_' . $iso2Key, 'cn_short_' . $iso2Key, $sorting);
 				}
-			}
-			// static_info_tables_es
-			else if (ExtensionManagementUtility::isLoaded('static_info_tables_es') && $GLOBALS['TSFE']->lang === 'es') {
-				if (version_compare(ExtensionManagementUtility::getExtensionVersion('static_info_tables_es'), '6.2.0') >= 0) {
-					$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortNameEs', 'shortNameEs', $sorting);
-				} else {
-					$countries = $this->loadCountryFieldsViaTypo3Api($oldTableField, 'cn_short_es', 'cn_short_es', $sorting);
-				}
-			}
-			// static_info_tables_da
-			else if (ExtensionManagementUtility::isLoaded('static_info_tables_da') && $GLOBALS['TSFE']->lang === 'da') {
-				if (version_compare(ExtensionManagementUtility::getExtensionVersion('static_info_tables_da'), '6.2.0') >= 0) {
-					$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortNameDa', 'shortNameDa', $sorting);
-				} else {
-					$countries = $this->loadCountryFieldsViaTypo3Api($oldTableField, 'cn_short_da', 'cn_short_da', $sorting);
-				}
-			}
-			// static_info_tables_zh
-			else if (ExtensionManagementUtility::isLoaded('static_info_tables_zh') && $GLOBALS['TSFE']->lang === 'zh') {
-				if (version_compare(ExtensionManagementUtility::getExtensionVersion('static_info_tables_zh'), '6.2.0') >= 0) {
-					$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortNameZh', 'shortNameZh', $sorting);
-				} else {
-					$countries = $this->loadCountryFieldsViaTypo3Api($oldTableField, 'cn_short_zh', 'cn_short_zh', $sorting);
-				}
-			}
-			// static_info_tables_pl
-			else if (ExtensionManagementUtility::isLoaded('static_info_tables_pl') && $GLOBALS['TSFE']->lang === 'pl') {
-				if (version_compare(ExtensionManagementUtility::getExtensionVersion('static_info_tables_pl'), '1.2.0') >= 0) {
-					$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortNamePl', 'shortNamePl', $sorting);
-				} else {
-					$countries = $this->loadCountryFieldsViaTypo3Api($oldTableField, 'cn_short_pl', 'cn_short_pl', $sorting);
-				}
-			}
-			// default is english
-			else {
+			} else {
 				$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortNameEn', 'shortNameEn', $sorting);
 			}
 
-			//DebuggerUtility::var_dump($countries);
-			// load english entries if nothing was found
-			if (empty($countries)) {
-				$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortNameEn', 'shortNameEn', $sorting);
-			}
 			$countries = $this->removeEmptyEntries($countries);
+		} else {
+			$countries = $this->getCountries();
 		}
 
-		return $this->addNoCountry($countries);
+		if ($other) {
+			return $this->addNoCountry($countries);
+		} else {
+			return $countries;
+		}
 	}
 
 	/**
 	 * load entries direct from table if static_info_tables ext has no model
-	 * 
-	 * @param array $countries
+	 *
+	 * @param string $key
+	 * @param string $field
+	 * @param string $orderby
+	 * @param string $sorting
+	 *
+	 * @return array $countries
 	 */
-	protected function loadCountryFieldsViaTypo3Api($key, $field, $orderby = '', $sorting = '') {
+	protected function loadCountryFieldsViaTypo3Api($key, $field, $orderby = '', $sorting = '')
+	{
 		$fields = $key . ',' . $field;
 		$table = 'static_countries';
 		$entries = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-				$fields, $table, '', '', $orderby . ' ' . $sorting, ''
+			$fields, $table, '', '', $orderby . ' ' . $sorting, ''
 		);
 		$countries = array();
+
 		if (!empty($entries)) {
 			foreach ($entries as $e) {
 				$countries[$e[$key]] = $e[$field];
 			}
 		}
+
 		return $countries;
 	}
 
 	/**
 	 * remove empty entries from array
-	 * 
+	 *
 	 * @param array $countries
+	 *
+	 * @return array $countries
 	 */
-	protected function removeEmptyEntries($countries) {
+	protected function removeEmptyEntries($countries)
+	{
 		if (is_array($countries)) {
 			foreach ($countries as $k => $c) {
 				if (empty($c)) {
@@ -151,10 +134,13 @@ class CountriesViewHelper extends AbstractViewHelper {
 
 	/**
 	 * add a no country found option
-	 * 
+	 *
 	 * @param array $countries
+	 *
+	 * @return array $countries
 	 */
-	protected function addNoCountry($countries) {
+	protected function addNoCountry($countries)
+	{
 		if (is_array($countries)) {
 			$trans = LocalizationUtility::translate('other_country', 'reint_powermail_country');
 			$countries['other'] = $trans;
@@ -163,11 +149,37 @@ class CountriesViewHelper extends AbstractViewHelper {
 	}
 
 	/**
+	 * check is static_info_tables_LANGUAGE is loaded
+	 *
+	 * @param string $langKey
+	 *
+	 * @return boolean
+	 */
+	protected function isLoadedLanguageVersion($langKey)
+	{
+		return ExtensionManagementUtility::isLoaded('static_info_tables_' . $langKey);
+	}
+
+	/**
+	 * check version of static_info_tables_LANGUAGE
+	 *
+	 * @param $langKey
+	 * @param $version
+	 *
+	 * @return boolean
+	 */
+	protected function compareVersion($langKey, $version)
+	{
+		return version_compare(ExtensionManagementUtility::getExtensionVersion('static_info_tables_' . $langKey), $version) >= 0;
+	}
+
+	/**
 	 * Build an country array
 	 *
 	 * @return \array
 	 */
-	protected function getCountries() {
+	protected function getCountries()
+	{
 		$countries = array(
 			'AND' => 'Andorra',
 			'ARE' => 'الإمارات العربيّة المتّحدة',
@@ -423,5 +435,4 @@ class CountriesViewHelper extends AbstractViewHelper {
 		);
 		return $countries;
 	}
-
 }
