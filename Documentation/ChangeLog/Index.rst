@@ -11,7 +11,6 @@
 ChangeLog
 =========
 
-<<<<<<< HEAD
 - **13.03.2016** -> 1.2.3
 
   - added argument "other" in ViewHelper to remove the "other country" option
@@ -19,8 +18,6 @@ ChangeLog
   
 ----------------------------
 
-=======
->>>>>>> origin/master
 - **10.02.2016** -> 1.2.2
 
   - merged pull request from pfandie see https://github.com/Kephson/reint_powermail_country/pull/1
