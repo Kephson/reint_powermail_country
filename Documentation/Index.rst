@@ -17,7 +17,7 @@ Powermail country ViewHelper
 		reint_powermail_country
 
 	:Version:
-		1.2.3
+		release
 
 	:Language:
 		en

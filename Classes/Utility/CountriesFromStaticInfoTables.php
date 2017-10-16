@@ -2,8 +2,6 @@
 
 namespace RENOLIT\ReintPowermailCountry\Utility;
 
-use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-
 /* * *************************************************************
  *  Copyright notice
  *
@@ -28,6 +26,8 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
+use \TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Get countries from static_info_tables
@@ -42,7 +42,7 @@ class CountriesFromStaticInfoTables
 	/**
 	 * countryRepository
 	 *
-	 * @var \SJBR\StaticInfoTables\Domain\Repository\CountryRepository
+	 * @var \RENOLIT\ReintPowermailCountry\Domain\Repository\CountryRepository
 	 * @inject
 	 */
 	protected $countryRepository;
@@ -58,12 +58,39 @@ class CountriesFromStaticInfoTables
 	 */
 	public function getCountries($key = 'isoCodeA3', $value = 'officialNameLocal', $sortbyField = 'isoCodeA3', $sorting = 'asc')
 	{
-		$countries = $this->countryRepository->findAllOrderedBy($sortbyField, $sorting);
+		$extSettings = $this->getTypoScriptSettings();
+		if (!empty($extSettings['countriesAllowed'])) {
+			$countries = $this->countryRepository->findAllowedByIsoA2($extSettings['countriesAllowed'], $sortbyField, $sorting);
+		} else {
+			$countries = $this->countryRepository->findAllOrderedBy($sortbyField, $sorting);
+		}
 		$countriesArray = array();
 		foreach ($countries as $country) {
 			/** @var $country \SJBR\StaticInfoTables\Domain\Model\Country */
 			$countriesArray[ObjectAccess::getProperty($country, $key)] = ObjectAccess::getProperty($country, $value);
 		}
+
 		return $countriesArray;
+	}
+
+	protected function getTypoScriptSettings()
+	{
+		/* @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
+		$objectManager = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
+		/* @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager */
+		$configurationManager = $objectManager->get(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::class);
+		$settings = $configurationManager->getConfiguration(
+			\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+		);
+		if (isset($settings['plugin.']['tx_reintpowermailcountry.']['settings.'])) {
+			$extSettings = $settings['plugin.']['tx_reintpowermailcountry.']['settings.'];
+		} else {
+			$extSettings = array(
+				'countriesAllowed' => '',
+				'countryDefault' => '',
+			);
+		}
+		//\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($extSettings);
+		return $extSettings;
 	}
 }

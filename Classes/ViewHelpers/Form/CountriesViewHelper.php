@@ -5,7 +5,7 @@ namespace RENOLIT\ReintPowermailCountry\ViewHelpers\Form;
 /* * *************************************************************
  *  Copyright notice
  *
- *  (c) 2015 Ephraim Härer https://github.com/Kephson
+ *  (c) 2015-2017 Ephraim Härer https://github.com/Kephson
  *  (c) 2016 Hans Mayer <hans.mayer83@gmail.com>
  *
  *  All rights reserved
@@ -26,8 +26,8 @@ namespace RENOLIT\ReintPowermailCountry\ViewHelpers\Form;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  * ************************************************************* */
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use \TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use \TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -54,8 +54,7 @@ class CountriesViewHelper extends AbstractViewHelper
 		// get countries from static_info_tables
 		if (ExtensionManagementUtility::isLoaded('static_info_tables')) {
 			$iso2Key = $GLOBALS['TSFE']->lang;
-			$version = '6.2.0';
-			$countriesFromStaticInfoTables = $this->objectManager->get('RENOLIT\ReintPowermailCountry\Utility\CountriesFromStaticInfoTables');
+			$countriesFromStaticInfoTables = $this->objectManager->get(\RENOLIT\ReintPowermailCountry\Utility\CountriesFromStaticInfoTables::class);
 
 			if ($key === 'isoCodeA2') {
 				$oldTableField = 'cn_iso_2';
@@ -64,11 +63,7 @@ class CountriesViewHelper extends AbstractViewHelper
 			}
 
 			if ($this->isLoadedLanguageVersion($iso2Key)) {
-				if ($this->compareVersion($iso2Key, $version)) {
-					$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortName' . ucfirst($iso2Key), 'shortName' . ucfirst($iso2Key), $sorting);
-				} else {
-					$countries = $this->loadCountryFieldsViaTypo3Api($oldTableField, 'cn_short_' . $iso2Key, 'cn_short_' . $iso2Key, $sorting);
-				}
+				$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortName' . ucfirst($iso2Key), 'shortName' . ucfirst($iso2Key), $sorting);
 			} else {
 				$countries = $countriesFromStaticInfoTables->getCountries($key, 'shortNameEn', 'shortNameEn', $sorting);
 			}
@@ -83,34 +78,6 @@ class CountriesViewHelper extends AbstractViewHelper
 		} else {
 			return $countries;
 		}
-	}
-
-	/**
-	 * load entries direct from table if static_info_tables ext has no model
-	 *
-	 * @param string $key
-	 * @param string $field
-	 * @param string $orderby
-	 * @param string $sorting
-	 *
-	 * @return array $countries
-	 */
-	protected function loadCountryFieldsViaTypo3Api($key, $field, $orderby = '', $sorting = '')
-	{
-		$fields = $key . ',' . $field;
-		$table = 'static_countries';
-		$entries = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-			$fields, $table, '', '', $orderby . ' ' . $sorting, ''
-		);
-		$countries = array();
-
-		if (!empty($entries)) {
-			foreach ($entries as $e) {
-				$countries[$e[$key]] = $e[$field];
-			}
-		}
-
-		return $countries;
 	}
 
 	/**

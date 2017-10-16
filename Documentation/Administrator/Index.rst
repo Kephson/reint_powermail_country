@@ -93,3 +93,18 @@ Only the new namespace was added at the top:
 And the options for the country select field have to be changed:
 
 **{rvh:Form.Countries(key:'isoCodeA3',value:'officialNameLocal',sortbyField:'isoCodeA3',sorting:'asc',other:'1')}**
+
+
+
+
+**Example setting to output only defined countries:**
+
+::
+
+		plugin.tx_reintpowermailcountry {
+			settings {
+				countriesAllowed = {$plugin.tx_reintpowermailcountry.settings.countriesAllowed}
+			}
+		}
+
+

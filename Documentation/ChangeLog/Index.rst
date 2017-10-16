@@ -11,6 +11,16 @@
 ChangeLog
 =========
 
+- **16.10.2017** -> 1.3.0
+
+  - dropped support for TYPO3 < 7.6
+  - updated icons
+  - added composer.json file
+  - added configuration options to define countries for output via TypoScript
+  - release of version 1.3.0
+  
+----------------------------
+
 - **13.03.2016** -> 1.2.3
 
   - added argument "other" in ViewHelper to remove the "other country" option
