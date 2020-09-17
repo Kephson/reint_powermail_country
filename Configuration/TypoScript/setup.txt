@@ -1,5 +1,0 @@
-plugin.tx_reintpowermailcountry {
-	settings {
-		countriesAllowed = {$plugin.tx_reintpowermailcountry.settings.countriesAllowed}
-	}
-}
