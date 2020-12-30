@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUndefinedVariableInspection */
 /* * *************************************************************
  * Extension Manager/Repository config file for ext "reint_powermail_country".
  *
@@ -19,12 +19,13 @@ $EM_CONF[$_EXTKEY] = [
     'uploadfolder' => false,
     'createDirs' => '',
     'clearCacheOnLoad' => false,
-    'version' => '2.0.0',
+    'version' => '2.0.1',
     'constraints' => [
         'depends' => [
             'typo3' => '9.5.17-10.4.99',
             'static_info_tables' => '6.9.0-6.9.99',
-            'php' => '7.2.0-0.0.0',
+            'powermail' => '7.0.0-8.99.99',
+            'php' => '7.3.0-7.4.99',
         ],
         'conflicts' => [
         ],

@@ -23,13 +23,13 @@ Powermail country ViewHelper
 		en
 
 	:Description:
-		Adds better using of static_info_tables for the country select field.
+		Special ViewHelper to render the country select field of Powermail.
 
 	:Keywords:
 		powermail,country,select,sorting,static_info_tables,static,info,tables
 
 	:Copyright:
-		2017
+		2020
 
 	:Author:
 		Ephraim Härer

@@ -48,7 +48,7 @@ To install the extension, perform the following steps:
 Configuration
 -------------
 
-#. Go to your country select template e.g. /yourPowermailTemplatesPath/Partials/Form/Country.html
+#. Go to your country select template e.g. /yourPowermailTemplatesPath/Partials/Form/Field/Country.html
 #. Insert the new namespace and change the select field like in the example below
 #. Do not change the template in the powermail extension folder, because after an update you will loose it!!!
 
@@ -57,54 +57,40 @@ Configuration
 
 ::
 
-		{namespace vh=In2code\Powermail\ViewHelpers}
-		{namespace rvh=RENOLIT\ReintPowermailCountry\ViewHelpers}
+        {namespace vh=In2code\Powermail\ViewHelpers}
+        {namespace rvh=RENOLIT\ReintPowermailCountry\ViewHelpers}
 
-		<f:comment>
-			{vh:Form.Countries()} will try to get the country list from the extension static_info_tables (and _de, _fr etc...)
-			If static_info_tables is not installed, a static list of countries and the ISO3 code will be shown in frontent
-			If you want to change sorting, Value or Label, please install static_info_tables
-		</f:comment>
+        <f:comment>
+            {vh:form.countries()} will try to get the country list from the extension static_info_tables (and _de, _fr etc...)
+            If static_info_tables is not installed, a static list of countries and the ISO3 code will be shown in frontent
+            If you want to change sorting, Value or Label, please install static_info_tables
+        </f:comment>
 
-		<div id="powermail_fieldwrap_{field.uid}" class="tx_powermail_pi1_fieldwrap_html powermail_fieldwrap powermail_fieldwrap_country powermail_fieldwrap_{field.uid} {field.css}">
-			<div class="label">
-				<label for="powermail_field_{field.marker}" class="powermail_label" title="{field.description}">
-					<vh:string.RawAndRemoveXss>{field.title}</vh:string.RawAndRemoveXss><f:if condition="{field.mandatory}"><span class="mandatory">*</span></f:if>
-				</label>
-			</div>
+        <div class="powermail_fieldwrap powermail_fieldwrap_type_country powermail_fieldwrap_{field.marker} {field.css} {settings.styles.framework.fieldAndLabelWrappingClasses}">
+            <f:render partial="Form/FieldLabel" arguments="{_all}" />
 
-			<div class="field">
-				<f:form.select
-					property="{field.marker}"
-					options="{rvh:Form.Countries(key:'isoCodeA3',value:'officialNameLocal',sortbyField:'isoCodeA3',sorting:'asc',other:'1')}"
-					prependOptionLabel="{f:translate(key:'pleaseChoose')}"
-					class="powermail_field powermail_country {vh:Validation.ErrorClass(field:field, class:'powermail_field_error')}"
-					value="{vh:Misc.PrefillField(field:field)}"
-					id="powermail_field_{field.marker}" />
-			</div>
-		</div>
-
-
-
-Only the new namespace was added at the top:
-
-**{namespace rvh=RENOLIT\ReintPowermailCountry\ViewHelpers}**
-
-And the options for the country select field have to be changed:
-
-**{rvh:Form.Countries(key:'isoCodeA3',value:'officialNameLocal',sortbyField:'isoCodeA3',sorting:'asc',other:'1')}**
-
-
-
-
-**Example setting to output only defined countries:**
-
-::
-
-		plugin.tx_reintpowermailcountry {
-			settings {
-				countriesAllowed = {$plugin.tx_reintpowermailcountry.settings.countriesAllowed}
-			}
-		}
-
-
+            <div class="{settings.styles.framework.fieldWrappingClasses}">
+                <f:switch expression="{rvh:languageCode()}">
+                    <f:case value="de">
+                        <f:form.select
+                                property="{field.marker}"
+                                options="{vh:form.countries(key:'isoCodeA2',value:'shortNameDe',sortbyField:'shortNameDe',sorting:'asc')}"
+                                prependOptionLabel="{f:translate(key:'pleaseChoose')}"
+                                class="powermail_country {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}"
+                                value="{vh:misc.prefillField(field:field, mail:mail)}"
+                                additionalAttributes="{vh:validation.validationDataAttribute(field:field)}"
+                                id="powermail_field_{field.marker}" />
+                    </f:case>
+                    <f:defaultCase>
+                        <f:form.select
+                                property="{field.marker}"
+                                options="{vh:form.countries(key:'isoCodeA2',value:'shortNameEn',sortbyField:'shortNameEn',sorting:'asc')}"
+                                prependOptionLabel="{f:translate(key:'pleaseChoose')}"
+                                class="powermail_country {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}"
+                                value="{vh:misc.prefillField(field:field, mail:mail)}"
+                                additionalAttributes="{vh:validation.validationDataAttribute(field:field)}"
+                                id="powermail_field_{field.marker}" />
+                    </f:defaultCase>
+                </f:switch>
+            </div>
+        </div>

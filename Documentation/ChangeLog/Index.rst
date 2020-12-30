@@ -11,6 +11,14 @@
 ChangeLog
 =========
 
+- **30.12.2020** -> 2.0.1
+
+  - dropped support for TYPO3 lower than 9.5
+  - new language selection is done with ViewHelper and selectbox will be created by switch case
+  - release of version 2.0.1
+
+----------------------------
+
 - **16.10.2017** -> 1.3.0
 
   - dropped support for TYPO3 < 7.6
