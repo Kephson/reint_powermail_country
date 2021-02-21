@@ -48,3 +48,7 @@ Temporary Items
 
 node_modules/
 /nbproject/*
+
+# TYPO3 documentation
+docker-compose.yml
+Documentation-GENERATED-temp/

@@ -11,6 +11,13 @@
 ChangeLog
 =========
 
+- **01.01.2021** -> 2.0.2
+
+  - small updates & cleanup
+  - release of version 2.0.2
+
+----------------------------
+
 - **30.12.2020** -> 2.0.1
 
   - dropped support for TYPO3 lower than 9.5
