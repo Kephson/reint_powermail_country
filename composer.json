@@ -17,6 +17,11 @@
     "psr-4": {
       "RENOLIT\\ReintPowermailCountry\\": "Classes"
     }
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "reint_powermail_country"
+    }
   }
 }
 
