@@ -1,13 +1,20 @@
-# remove PHPStorm folders
-*.idea
-.idea/*
+# IntelliJ project files
+.idea
+*.iml
+out
 
-# Windows image file caches
+# Created by .ignore support plugin (hsz.mobi)
+### Windows template
+# Windows thumbnail cache files
 Thumbs.db
 ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
 
 # Folder config file
-Desktop.ini
+[Dd]esktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
@@ -15,40 +22,59 @@ $RECYCLE.BIN/
 # Windows Installer files
 *.cab
 *.msi
+*.msix
 *.msm
 *.msp
 
 # Windows shortcuts
 *.lnk
 
-# =========================
-# Operating System Files
-# =========================
+# CMake
+cmake-build-*/
 
-# OSX
-# =========================
+# Mongo Explorer plugin
+.idea/**/mongoSettings.xml
 
-.DS_Store
-.AppleDouble
-.LSOverride
+# File-based project format
+*.iws
 
-# Thumbnails
-._*
+# IntelliJ
+out/
 
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
+# mpeltonen/sbt-idea plugin
+.idea_modules/
 
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
+# JIRA plugin
+atlassian-ide-plugin.xml
 
+# Cursive Clojure plugin
+.idea/replstate.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+gen### NetBeans template
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+*.log
+vendor/
 node_modules/
-/nbproject/*
+.sass_cache
+var/
+ENABLE_INSTALL_TOOL
 
-# TYPO3 documentation
-docker-compose.yml
-Documentation-GENERATED-temp/
+# TYPO3 docs
+Documentation-GENERATED-temp
+Documentation
+
+# project
+public
+.build
+.Build

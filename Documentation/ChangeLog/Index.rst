@@ -11,6 +11,13 @@
 ChangeLog
 =========
 
+- **12.09.2022** -> 3.0.0
+
+  - check with TYPO3 11.5 and newest Powermail versions
+  - release of version 3.0.0
+
+----------------------------
+
 - **01.01.2021** -> 2.0.2
 
   - small updates & cleanup
@@ -33,28 +40,28 @@ ChangeLog
   - added composer.json file
   - added configuration options to define countries for output via TypoScript
   - release of version 1.3.0
-  
+
 ----------------------------
 
 - **13.03.2016** -> 1.2.3
 
   - added argument "other" in ViewHelper to remove the "other country" option
   - release of version 1.2.3
-  
+
 ----------------------------
 
 - **10.02.2016** -> 1.2.2
 
   - merged pull request from pfandie see https://github.com/Kephson/reint_powermail_country/pull/1
   - release of version 1.2.2
-  
+
 ----------------------------
 
 - **10.02.2016** -> 1.2.1
 
   - added compatibility for 7 LTS
   - release of version 1.2.1
-  
+
 ----------------------------
 
 - **17.09.2015** -> 1.2.0

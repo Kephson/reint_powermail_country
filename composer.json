@@ -1,27 +1,50 @@
 {
-  "name": "renolit/reint-powermail-country",
-  "type": "typo3-cms-extension",
-  "description": "An extended ViewHelper for the powermail country select field.",
-  "homepage": "https://github.com/Kephson/reint_powermail_country",
-  "license": "GPL-2.0+",
-  "keywords": [
-    "TYPO3 CMS"
-  ],
-  "require": {
-    "php": ">=7.3",
-    "typo3/cms-core": "^9.5 || ^10.4",
-    "sjbr/static-info-tables": "^6.9",
-    "in2code/powermail": "^7.0 || ^8.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "RENOLIT\\ReintPowermailCountry\\": "Classes"
-    }
-  },
-  "extra": {
-    "typo3/cms": {
-      "extension-key": "reint_powermail_country"
-    }
-  }
+	"name": "renolit/reint-powermail-country",
+	"type": "typo3-cms-extension",
+	"description": "An extended ViewHelper for the powermail country select field.",
+	"license": "GPL-2.0+",
+	"keywords": [
+		"TYPO3 CMS"
+	],
+	"authors": [
+		{
+			"name": "Ephraim Härer",
+			"email": "mail@ephra.im",
+			"homepage": "https://ephra.im",
+			"role": "Developer"
+		}
+	],
+	"homepage": "https://github.com/Kephson/reint_powermail_country",
+	"support": {
+		"issues": "https://github.com/Kephson/reint_powermail_country/issues"
+	},
+	"require": {
+		"php": "^7.4 || ^8.0",
+		"typo3/cms-core": "^10.4 || ^11.5",
+		"sjbr/static-info-tables": "^6.9 || ^11.5",
+		"in2code/powermail": "^7.0 || ^8.0 || ^9.0 || 10.4"
+	},
+	"require-dev": {
+		"ergebnis/composer-normalize": "^2.28"
+	},
+	"autoload": {
+		"psr-4": {
+			"RENOLIT\\ReintPowermailCountry\\": "Classes"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"typo3/class-alias-loader": true,
+			"typo3/cms-composer-installers": true,
+			"ergebnis/composer-normalize": true
+		}
+	},
+	"extra": {
+		"typo3/cms": {
+			"cms-package-dir": "{$vendor-dir}/typo3/cms",
+			"extension-key": "reint_powermail_country",
+			"web-dir": ".Build/web"
+		}
+	}
 }
 

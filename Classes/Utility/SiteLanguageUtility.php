@@ -6,7 +6,7 @@ namespace RENOLIT\ReintPowermailCountry\Utility;
  *
  *  Copyright notice
  *
- *  (c) 2020 Ephraim Härer <ephraim@ephespage.de>
+ *  (c) 2020-2022 Ephraim Härer <ephraim@ephespage.de>
  *
  *  All rights reserved
  *
