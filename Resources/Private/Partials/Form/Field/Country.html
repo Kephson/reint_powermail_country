@@ -1,5 +1,7 @@
-{namespace vh=In2code\Powermail\ViewHelpers}
-{namespace rvh=RENOLIT\ReintPowermailCountry\ViewHelpers}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:vh="http://typo3.org/ns/In2code/Powermail/ViewHelpers"
+      xmlns:rvh="http://typo3.org/ns/RENOLIT/ReintPowermailCountry/ViewHelpers"
+      data-namespace-typo3-fluid="true">
 
 <f:comment>
 	{vh:form.countries()} will try to get the country list from the extension static_info_tables (and _de, _fr etc...)
@@ -10,7 +12,7 @@
 <div class="powermail_fieldwrap powermail_fieldwrap_type_country powermail_fieldwrap_{field.marker} {field.css} {settings.styles.framework.fieldAndLabelWrappingClasses}">
 	<f:render partial="Form/FieldLabel" arguments="{_all}" />
 
-	<div class="{settings.styles.framework.fieldWrappingClasses}">
+    <div class="{settings.styles.framework.fieldWrappingClasses}">
 		<f:switch expression="{rvh:languageCode()}">
 			<f:case value="de">
 				<f:form.select
@@ -35,3 +37,4 @@
 		</f:switch>
 	</div>
 </div>
+</html>

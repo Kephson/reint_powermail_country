@@ -1,7 +1,7 @@
 reint_powermail_country
 ========================
 
-TYPO3 Extension: An extended viewhelper for the powermail country select field.
+TYPO3 Extension: An extended ViewHelper for the powermail country select field.
 
 
 Installation and Usage
@@ -13,4 +13,4 @@ More information on [introduction](Documentation/Introduction/Index.rst) and [us
 Issues and Feedback
 ======================
 
-Please use Github to send me issues or feature requests and feedback. Thanks.
+Please use [Github](https://github.com/Kephson/reint_powermail_country/issues) to send me issues or feature requests and feedback. Thanks.
