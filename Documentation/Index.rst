@@ -29,7 +29,7 @@ Powermail country ViewHelper
 		powermail,country,select,sorting,static_info_tables,static,info,tables
 
 	:Copyright:
-		2022
+		2024
 
 	:Author:
 		Ephraim Härer

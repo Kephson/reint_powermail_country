@@ -11,6 +11,13 @@
 ChangeLog
 =========
 
+- **01.09.2024** -> 3.0.1
+
+  - updated dependencies
+  - release of version 3.0.1
+
+----------------------------
+
 - **15.09.2022** -> 3.0.0
 
   - upgrade and check for TYPO3 11.5 and newest Powermail versions
